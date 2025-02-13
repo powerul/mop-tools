@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOP工具網</title>
+    <style>
+        /* 基本樣式 */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* 導航欄 */
+        header {
+            background-color: #2c3e50;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        /* 分類按鈕 */
+        .categories {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            padding: 20px;
+            background-color: #34495e;
+        }
+        .categories button {
+            background-color: #1abc9c;
+            border: none;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        .categories button:hover {
+            background-color: #16a085;
+        }
+
+        /* 工具卡片 */
+        .tools-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+        .tool-card {
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .tool-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        .tool-card img {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 15px;
+            border-radius: 10px;
+        }
+        .tool-card h3 {
+            margin: 10px 0;
+            font-size: 1.5rem;
+        }
+        .tool-card p {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        .tool-card a {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #3498db;
+            color: #fff;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .tool-card a:hover {
+            background-color: #2980b9;
+        }
+
+        /* 頁腳 */
+        footer {
+            background-color: #2c3e50;
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>MOP工具網</h1>
+        <p>探索最實用的 AI 工具，提升你的工作效率！</p>
+    </header>
+
+    <!-- 分類按鈕 -->
+    <div class="categories">
+        <button onclick="filterTools('all')">全部</button>
+        <button onclick="filterTools('text')">文字生成</button>
+        <button onclick="filterTools('image')">圖像生成</button>
+        <button onclick="filterTools('voice')">語音識別</button>
+        <button onclick="filterTools('video')">視頻處理</button>
+        <button onclick="filterTools('other')">其他</button>
+    </div>
+
+    <!-- 工具卡片 -->
+    <div class="tools-container" id="tools-container">
+        <!-- 工具卡片會動態生成 -->
+    </div>
+
+    <!-- 頁腳 -->
+    <footer>
+        <p>&copy; 2023 MOP工具網. 版權所有。</p>
+    </footer>
+
+    <script>
+        // 工具數據
+        const tools = [
+            // 文字生成
+            { name: "ChatGPT", category: "text", description: "強大的文字生成 AI，適合寫作和對話。", icon: "https://logo.clearbit.com/openai.com", link: "https://chat.openai.com" },
+            { name: "Google Bard", category: "text", description: "Google 的 AI 聊天機器人。", icon: "https://logo.clearbit.com/bard.google.com", link: "https://bard.google.com" },
+            { name: "Claude", category: "text", description: "Anthropic 的 AI 助手，專注於對話和寫作。", icon: "https://logo.clearbit.com/anthropic.com", link: "https://www.anthropic.com" },
+            { name: "Notion AI", category: "text", description: "智能筆記和寫作助手。", icon: "https://logo.clearbit.com/notion.so", link: "https://www.notion.so/product/ai" },
+            { name: "Grammarly", category: "text", description: "AI 驅動的寫作輔助工具。", icon: "https://logo.clearbit.com/grammarly.com", link: "https://www.grammarly.com" },
+            { name: "Jasper", category: "text", description: "AI 寫作工具，適合內容創作。", icon: "https://logo.clearbit.com/jasper.ai", link: "https://www.jasper.ai" },
+
+            // 圖像生成
+            { name: "MidJourney", category: "image", description: "生成高質量的藝術圖像。", icon: "https://logo.clearbit.com/midjourney.com", link: "https://midjourney.com" },
+            { name: "DALL-E", category: "image", description: "根據文字描述生成圖像。", icon: "https://logo.clearbit.com/openai.com", link: "https://openai.com/dall-e" },
+            { name: "Stable Diffusion", category: "image", description: "開源的圖像生成模型。", icon: "https://logo.clearbit.com/stability.ai", link: "https://stability.ai/stable-diffusion" },
+            { name: "Canva", category: "image", description: "設計和圖像編輯工具。", icon: "https://logo.clearbit.com/canva.com", link: "https://www.canva.com" },
+            { name: "Runway ML", category: "image", description: "AI 驅動的圖像和視頻編輯工具。", icon: "https://logo.clearbit.com/runwayml.com", link: "https://runwayml.com" },
+
+            // 語音識別
+            { name: "Descript", category: "voice", description: "語音識別和音頻編輯工具。", icon: "https://logo.clearbit.com/descript.com", link: "https://descript.com" },
+            { name: "Otter.ai", category: "voice", description: "語音轉文字工具。", icon: "https://logo.clearbit.com/otter.ai", link: "https://otter.ai" },
+            { name: "Rev", category: "voice", description: "高精度的語音轉文字服務。", icon: "https://logo.clearbit.com/rev.com", link: "https://www.rev.com" },
+
+            // 視頻處理
+            { name: "Synthesia", category: "video", description: "AI 視頻生成工具。", icon: "https://logo.clearbit.com/synthesia.io", link: "https://www.synthesia.io" },
+            { name: "Runway ML", category: "video", description: "AI 驅動的視頻編輯工具。", icon: "https://logo.clearbit.com/runwayml.com", link: "https://runwayml.com" },
+            { name: "Lumen5", category: "video", description: "AI 視頻製作工具。", icon: "https://logo.clearbit.com/lumen5.com", link: "https://www.lumen5.com" },
+
+            // 其他
+            { name: "Hugging Face", category: "other", description: "AI 模型和工具庫。", icon: "https://logo.clearbit.com/huggingface.co", link: "https://huggingface.co" },
+            { name: "Replicate", category: "other", description: "運行開源 AI 模型的平台。", icon: "https://logo.clearbit.com/replicate.com", link: "https://replicate.com" },
+            { name: "DeepL", category: "other", description: "高精度的 AI 翻譯工具。", icon: "https://logo.clearbit.com/deepl.com", link: "https://www.deepl.com" },
+        ];
+
+        // 動態生成工具卡片
+        function renderTools(category = 'all') {
+            const container = document.getElementById('tools-container');
+            container.innerHTML = ''; // 清空容器
+            tools.forEach(tool => {
+                if (category === 'all' || tool.category === category) {
+                    const card = `
+                        <div class="tool-card">
+                            <img src="${tool.icon}" alt="${tool.name}">
+                            <h3>${tool.name}</h3>
+                            <p>${tool.description}</p>
+                            <a href="${tool.link}" target="_blank">前往使用</a>
+                        </div>
+                    `;
+                    container.innerHTML += card;
+                }
+            });
+        }
+
+        // 分類過濾功能
+        function filterTools(category) {
+            renderTools(category);
+        }
+
+        // 初始加載
+        renderTools();
+    </script>
+</body>
+</html>
