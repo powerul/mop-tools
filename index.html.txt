@@ -1,195 +1,66 @@
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MOP工具網</title>
-    <style>
-        /* 基本樣式 */
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f9f9f9;
-            margin: 0;
-            padding: 0;
-            color: #333;
-        }
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* 導航欄 */
-        header {
-            background-color: #2c3e50;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-        }
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-        }
-
-        /* 分類按鈕 */
-        .categories {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 10px;
-            padding: 20px;
-            background-color: #34495e;
-        }
-        .categories button {
-            background-color: #1abc9c;
-            border: none;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1rem;
-            transition: background-color 0.3s;
-        }
-        .categories button:hover {
-            background-color: #16a085;
-        }
-
-        /* 工具卡片 */
-        .tools-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        .tool-card {
-            background-color: #fff;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            width: 300px;
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .tool-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-        }
-        .tool-card img {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 15px;
-            border-radius: 10px;
-            object-fit: contain; /* 修正圖片變形 */
-        }
-        .tool-card h3 {
-            margin: 10px 0;
-            font-size: 1.5rem;
-        }
-        .tool-card p {
-            font-size: 0.9rem;
-            color: #666;
-        }
-        .tool-card a {
-            display: inline-block;
-            margin-top: 15px;
-            padding: 10px 20px;
-            background-color: #3498db;
-            color: #fff;
-            border-radius: 5px;
-            transition: background-color 0.3s;
-        }
-        .tool-card a:hover {
-            background-color: #2980b9;
-        }
-
-        /* 頁腳 */
-        footer {
-            background-color: #2c3e50;
-            color: #fff;
-            text-align: center;
-            padding: 15px;
-            margin-top: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AI 工具聚合平台</title>
+  <!-- 使用 Bootstrap 5 加速版面開發 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header>
-        <h1>MOP工具網</h1>
-        <p>探索最實用的 AI 工具，提升你的工作效率！</p>
-    </header>
-
-    <!-- 分類按鈕 -->
-    <div class="categories">
-        <button onclick="filterTools('all')">全部</button>
-        <button onclick="filterTools('text')">文字生成</button>
-        <button onclick="filterTools('image')">圖像生成</button>
-        <button onclick="filterTools('voice')">語音識別</button>
-        <button onclick="filterTools('video')">視頻處理</button>
-        <button onclick="filterTools('other')">其他</button>
+  <!-- 頂部導覽區 -->
+  <header class="bg-dark text-white py-3">
+    <div class="container">
+      <h1 class="mb-1">AI 工具聚合平台</h1>
+      <p class="lead">快速連結市面上好用的 AI 工具</p>
     </div>
+  </header>
 
-    <!-- 工具卡片 -->
-    <div class="tools-container" id="tools-container"></div>
+  <!-- 主要內容區 -->
+  <main class="container my-5">
+    <!-- 搜尋欄 -->
+    <div class="mb-4">
+      <input type="text" id="search" class="form-control" placeholder="搜尋 AI 工具...">
+    </div>
+    
+    <!-- 工具卡片網格 -->
+    <div class="row" id="toolsGrid">
+      <!-- 單一工具卡片範例 -->
+      <div class="col-md-4 mb-4 tool-item">
+        <div class="card h-100 shadow-sm">
+          <img src="https://via.placeholder.com/500x300?text=AI+Tool" class="card-img-top" alt="Tool Name">
+          <div class="card-body">
+            <h5 class="card-title">Tool Name</h5>
+            <p class="card-text">這裡是工具的簡介，介紹工具的功能與特色。</p>
+            <a href="https://tool-link.com" class="btn btn-primary" target="_blank">進入工具</a>
+          </div>
+        </div>
+      </div>
+      <!-- 重複上面的區塊加入更多工具 -->
+      <div class="col-md-4 mb-4 tool-item">
+        <div class="card h-100 shadow-sm">
+          <img src="https://via.placeholder.com/500x300?text=AI+Tool+2" class="card-img-top" alt="Tool Name 2">
+          <div class="card-body">
+            <h5 class="card-title">Tool Name 2</h5>
+            <p class="card-text">第二個工具的簡介。</p>
+            <a href="https://tool2-link.com" class="btn btn-primary" target="_blank">進入工具</a>
+          </div>
+        </div>
+      </div>
+      <!-- 可以根據需求增加更多卡片 -->
+    </div>
+  </main>
 
-    <!-- 頁腳 -->
-    <footer>
-        <p>&copy; 2023 MOP工具網. 版權所有。</p>
-    </footer>
+  <!-- 頁尾 -->
+  <footer class="bg-light text-center py-3">
+    <div class="container">
+      <p class="mb-0">&copy; 2025 AI 工具聚合平台</p>
+    </div>
+  </footer>
 
-    <script>
-        // 工具數據 (已修正圖標和分類錯誤)
-        const tools = [
-            // 文字生成
-            { name: "ChatGPT", category: "text", description: "OpenAI 開發的對話式 AI", icon: "https://static.vecteezy.com/system/resources/previews/021/608/790/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg", link: "https://chat.openai.com" },
-            { name: "Google Bard", category: "text", description: "Google 的生成式 AI", icon: "https://logowik.com/content/uploads/images/google-bard-icon3963.jpg", link: "https://bard.google.com" },
-            { name: "Claude", category: "text", description: "Anthropic 的安全導向 AI", icon: "https://assets-global.website-files.com/62f57607512f156e6e9ae03f/62f57607512f1503e39ae0d5_Anthropic%20logo.png", link: "https://claude.ai" },
-
-            // 圖像生成
-            { name: "MidJourney", category: "image", description: "藝術風格圖像生成", icon: "https://cdn.iconscout.com/icon/free/png-256/free-midjourney-4381984-3635489.png", link: "https://midjourney.com" },
-            { name: "DALL-E 3", category: "image", description: "OpenAI 的圖像生成工具", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/dalle-5724858-4783794.png", link: "https://openai.com/dall-e" },
-            { name: "Stable Diffusion", category: "image", description: "開源圖像生成模型", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/stable-diffusion-5490085-4603267.png", link: "https://stability.ai" },
-
-            // 語音識別
-            { name: "Otter.ai", category: "voice", description: "會議語音轉文字", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/otter-ai-5490068-4603249.png", link: "https://otter.ai" },
-            { name: "Descript", category: "voice", description: "音頻編輯與轉錄", icon: "https://static.descript.com/static/next/assets/logo/logo-square-red.avif", link: "https://descript.com" },
-            { name: "Rev", category: "voice", description: "專業語音轉文字服務", icon: "https://www.rev.com/favicon.ico", link: "https://rev.com" },
-
-            // 視頻處理
-            { name: "Runway ML", category: "video", description: "AI 視頻編輯工具", icon: "https://static.runwayml.com/logo/runway-logo-icon.png", link: "https://runwayml.com" },
-            { name: "Synthesia", category: "video", description: "AI 虛擬形象視頻生成", icon: "https://www.synthesia.io/favicon-32x32.png", link: "https://synthesia.io" },
-            { name: "HeyGen", category: "video", description: "AI 口型同步視頻工具", icon: "https://assets-global.website-files.com/6505e34cb9ab01060b0d0c3f/6505e34cb9ab01060b0d0c59_heygen-icon.png", link: "https://heygen.com" },
-
-            // 其他
-            { name: "Hugging Face", category: "other", description: "AI 模型社群平台", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg", link: "https://huggingface.co" },
-            { name: "Perplexity AI", category: "other", description: "AI 搜索引擎", icon: "https://www.perplexity.ai/images/perplexity.ico", link: "https://perplexity.ai" }
-        ];
-
-        // 動態生成工具卡片
-        function renderTools(category = 'all') {
-            const container = document.getElementById('tools-container');
-            container.innerHTML = '';
-            tools.forEach(tool => {
-                if (category === 'all' || tool.category === category) {
-                    const card = `
-                        <div class="tool-card">
-                            <img src="${tool.icon}" alt="${tool.name}">
-                            <h3>${tool.name}</h3>
-                            <p>${tool.description}</p>
-                            <a href="${tool.link}" target="_blank">前往使用</a>
-                        </div>
-                    `;
-                    container.innerHTML += card;
-                }
-            });
-        }
-
-        // 分類過濾功能
-        function filterTools(category) {
-            renderTools(category);
-        }
-
-        // 初始加載
-        renderTools();
-    </script>
+  <!-- 載入 Bootstrap 與自定義 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
