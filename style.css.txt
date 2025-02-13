@@ -1,0 +1,25 @@
+/* 全站字體與背景調整 */
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f8f9fa;
+}
+
+/* 標題區的漸層效果 */
+header {
+  background: linear-gradient(45deg, #4e54c8, #8f94fb);
+}
+
+/* 卡片滑鼠懸停時放大 */
+.tool-item .card {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.tool-item .card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* 搜尋欄焦點樣式 */
+#search:focus {
+  box-shadow: 0 0 5px rgba(78, 84, 200, 0.5);
+  border-color: #4e54c8;
+}
