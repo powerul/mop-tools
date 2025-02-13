@@ -79,6 +79,7 @@
             height: 80px;
             margin-bottom: 15px;
             border-radius: 10px;
+            object-fit: contain; /* 修正圖片變形 */
         }
         .tool-card h3 {
             margin: 10px 0;
@@ -128,9 +129,7 @@
     </div>
 
     <!-- 工具卡片 -->
-    <div class="tools-container" id="tools-container">
-        <!-- 工具卡片會動態生成 -->
-    </div>
+    <div class="tools-container" id="tools-container"></div>
 
     <!-- 頁腳 -->
     <footer>
@@ -138,43 +137,37 @@
     </footer>
 
     <script>
-        // 工具數據
+        // 工具數據 (已修正圖標和分類錯誤)
         const tools = [
             // 文字生成
-            { name: "ChatGPT", category: "text", description: "強大的文字生成 AI，適合寫作和對話。", icon: "https://logo.clearbit.com/openai.com", link: "https://chat.openai.com" },
-            { name: "Google Bard", category: "text", description: "Google 的 AI 聊天機器人。", icon: "https://logo.clearbit.com/bard.google.com", link: "https://bard.google.com" },
-            { name: "Claude", category: "text", description: "Anthropic 的 AI 助手，專注於對話和寫作。", icon: "https://logo.clearbit.com/anthropic.com", link: "https://www.anthropic.com" },
-            { name: "Notion AI", category: "text", description: "智能筆記和寫作助手。", icon: "https://logo.clearbit.com/notion.so", link: "https://www.notion.so/product/ai" },
-            { name: "Grammarly", category: "text", description: "AI 驅動的寫作輔助工具。", icon: "https://logo.clearbit.com/grammarly.com", link: "https://www.grammarly.com" },
-            { name: "Jasper", category: "text", description: "AI 寫作工具，適合內容創作。", icon: "https://logo.clearbit.com/jasper.ai", link: "https://www.jasper.ai" },
+            { name: "ChatGPT", category: "text", description: "OpenAI 開發的對話式 AI", icon: "https://static.vecteezy.com/system/resources/previews/021/608/790/non_2x/chatgpt-logo-chat-gpt-icon-on-white-background-free-vector.jpg", link: "https://chat.openai.com" },
+            { name: "Google Bard", category: "text", description: "Google 的生成式 AI", icon: "https://logowik.com/content/uploads/images/google-bard-icon3963.jpg", link: "https://bard.google.com" },
+            { name: "Claude", category: "text", description: "Anthropic 的安全導向 AI", icon: "https://assets-global.website-files.com/62f57607512f156e6e9ae03f/62f57607512f1503e39ae0d5_Anthropic%20logo.png", link: "https://claude.ai" },
 
             // 圖像生成
-            { name: "MidJourney", category: "image", description: "生成高質量的藝術圖像。", icon: "https://logo.clearbit.com/midjourney.com", link: "https://midjourney.com" },
-            { name: "DALL-E", category: "image", description: "根據文字描述生成圖像。", icon: "https://logo.clearbit.com/openai.com", link: "https://openai.com/dall-e" },
-            { name: "Stable Diffusion", category: "image", description: "開源的圖像生成模型。", icon: "https://logo.clearbit.com/stability.ai", link: "https://stability.ai/stable-diffusion" },
-            { name: "Canva", category: "image", description: "設計和圖像編輯工具。", icon: "https://logo.clearbit.com/canva.com", link: "https://www.canva.com" },
-            { name: "Runway ML", category: "image", description: "AI 驅動的圖像和視頻編輯工具。", icon: "https://logo.clearbit.com/runwayml.com", link: "https://runwayml.com" },
+            { name: "MidJourney", category: "image", description: "藝術風格圖像生成", icon: "https://cdn.iconscout.com/icon/free/png-256/free-midjourney-4381984-3635489.png", link: "https://midjourney.com" },
+            { name: "DALL-E 3", category: "image", description: "OpenAI 的圖像生成工具", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/dalle-5724858-4783794.png", link: "https://openai.com/dall-e" },
+            { name: "Stable Diffusion", category: "image", description: "開源圖像生成模型", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/stable-diffusion-5490085-4603267.png", link: "https://stability.ai" },
 
             // 語音識別
-            { name: "Descript", category: "voice", description: "語音識別和音頻編輯工具。", icon: "https://logo.clearbit.com/descript.com", link: "https://descript.com" },
-            { name: "Otter.ai", category: "voice", description: "語音轉文字工具。", icon: "https://logo.clearbit.com/otter.ai", link: "https://otter.ai" },
-            { name: "Rev", category: "voice", description: "高精度的語音轉文字服務。", icon: "https://logo.clearbit.com/rev.com", link: "https://www.rev.com" },
+            { name: "Otter.ai", category: "voice", description: "會議語音轉文字", icon: "https://cdn.iconscout.com/icon/premium/png-256-thumb/otter-ai-5490068-4603249.png", link: "https://otter.ai" },
+            { name: "Descript", category: "voice", description: "音頻編輯與轉錄", icon: "https://static.descript.com/static/next/assets/logo/logo-square-red.avif", link: "https://descript.com" },
+            { name: "Rev", category: "voice", description: "專業語音轉文字服務", icon: "https://www.rev.com/favicon.ico", link: "https://rev.com" },
 
             // 視頻處理
-            { name: "Synthesia", category: "video", description: "AI 視頻生成工具。", icon: "https://logo.clearbit.com/synthesia.io", link: "https://www.synthesia.io" },
-            { name: "Runway ML", category: "video", description: "AI 驅動的視頻編輯工具。", icon: "https://logo.clearbit.com/runwayml.com", link: "https://runwayml.com" },
-            { name: "Lumen5", category: "video", description: "AI 視頻製作工具。", icon: "https://logo.clearbit.com/lumen5.com", link: "https://www.lumen5.com" },
+            { name: "Runway ML", category: "video", description: "AI 視頻編輯工具", icon: "https://static.runwayml.com/logo/runway-logo-icon.png", link: "https://runwayml.com" },
+            { name: "Synthesia", category: "video", description: "AI 虛擬形象視頻生成", icon: "https://www.synthesia.io/favicon-32x32.png", link: "https://synthesia.io" },
+            { name: "HeyGen", category: "video", description: "AI 口型同步視頻工具", icon: "https://assets-global.website-files.com/6505e34cb9ab01060b0d0c3f/6505e34cb9ab01060b0d0c59_heygen-icon.png", link: "https://heygen.com" },
 
             // 其他
-            { name: "Hugging Face", category: "other", description: "AI 模型和工具庫。", icon: "https://logo.clearbit.com/huggingface.co", link: "https://huggingface.co" },
-            { name: "Replicate", category: "other", description: "運行開源 AI 模型的平台。", icon: "https://logo.clearbit.com/replicate.com", link: "https://replicate.com" },
-            { name: "DeepL", category: "other", description: "高精度的 AI 翻譯工具。", icon: "https://logo.clearbit.com/deepl.com", link: "https://www.deepl.com" },
+            { name: "Hugging Face", category: "other", description: "AI 模型社群平台", icon: "https://huggingface.co/front/assets/huggingface_logo-noborder.svg", link: "https://huggingface.co" },
+            { name: "Perplexity AI", category: "other", description: "AI 搜索引擎", icon: "https://www.perplexity.ai/images/perplexity.ico", link: "https://perplexity.ai" }
         ];
 
         // 動態生成工具卡片
         function renderTools(category = 'all') {
             const container = document.getElementById('tools-container');
-            container.innerHTML = ''; // 清空容器
+            container.innerHTML = '';
             tools.forEach(tool => {
                 if (category === 'all' || tool.category === category) {
                     const card = `
